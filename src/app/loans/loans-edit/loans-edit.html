@@ -1,0 +1,55 @@
+<div class="container">
+    @if (id()) {
+        <h1>Modificar prestamo</h1>
+    } @else {
+        <h1>Crear prestamo</h1>
+    } 
+ 
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" [(ngModel)]="id" name="id" disabled>
+        </mat-form-field> 
+        
+        <mat-form-field>
+            <mat-label>Título del juego</mat-label>
+            <mat-select disableRipple [(ngModel)]="gameId" name="game" required>
+                @for (g of gameList(); track g.id) {
+                    <mat-option [value]="g.id">{{ g.title }}</mat-option>
+                }
+            </mat-select>
+            <mat-error>El nombre del juego no puede estar vacío</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Nombre del cliente</mat-label>
+            <mat-select disableRipple [(ngModel)]="clientId" name="client" required>
+                @for (cli of clientList(); track cli.id) {
+                    <mat-option [value]="cli.id">{{ cli.name }}</mat-option>
+                }
+            </mat-select>
+            <mat-error>El nombre del cliente no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de Préstamo</mat-label>
+                <input matInput [matDatepicker]="pickerIni" [(ngModel)]="iniDate" name="iniDate" required>
+                <mat-datepicker-toggle matIconSuffix [for]="pickerIni"></mat-datepicker-toggle>
+                <mat-datepicker #pickerIni></mat-datepicker>
+            <mat-error>La fecha del prestamo no puede estar vacía</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de Devolución</mat-label>
+                <input matInput [matDatepicker]="pickerDev" [(ngModel)]="devDate" name="devDate" required>
+                <mat-datepicker-toggle matIconSuffix [for]="pickerDev"></mat-datepicker-toggle>
+                <mat-datepicker #pickerDev></mat-datepicker>
+            <mat-error>La fecha de la devolución no puede estar vacía</mat-error>
+        </mat-form-field>
+    </form>
+ 
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>
